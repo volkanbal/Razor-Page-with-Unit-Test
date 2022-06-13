@@ -10,12 +10,11 @@ using Xunit;
 namespace ArvatoAppTest {
 	public class AppTest {
 		private readonly EFContext _dbcontext;
-		private readonly ITicketData ticketData;
+		private readonly TicketBL ticketBL;
 		public AppTest() {
 			var options = new DbContextOptionsBuilder<EFContext>().UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()).Options;
 			_dbcontext = new EFContext(options);
-			ticketData = new TicketData(_dbcontext);
-
+			ticketBL = new TicketBL(_dbcontext);
 		}
 		[Theory]
 		[InlineData("volkanbal@hotmail.com", "string", null, "", true, InquiryTypes.type_a, false)]
@@ -40,7 +39,7 @@ namespace ArvatoAppTest {
 			var modelValidationResult = ValidateModel(Ticket).Count == 0;
 			if (pass && !modelValidationResult)
 				Assert.Equal(pass, modelValidationResult);
-			var result = ticketData.saveTicket(Ticket);
+			var result = ticketBL.saveTicket(Ticket);
 			Assert.Equal(pass, result.Success && modelValidationResult);
 		}
 

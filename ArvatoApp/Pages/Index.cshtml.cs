@@ -9,18 +9,20 @@ namespace ArvatoApp.Pages {
 	public class IndexModel : PageModel {
 		[BindProperty]
 		public CustomerTicket Ticket { get; set; }
-		private readonly EFContext _dbcontext;
-		private readonly ITicketData ticketData;
+		private readonly TicketBL ticketBL;
 
 
 		public IndexModel(EFContext dbcontext) {
-			_dbcontext = dbcontext;
-			ticketData = new TicketData(dbcontext);
+			ticketBL = new TicketBL(dbcontext);
 		}
 
 		public void OnGet() {
 
 		}
+		/// <summary>
+		/// Ticket will be created, may be some other triggers (like sending email etc.) should be implemented
+		/// </summary>
+		/// <returns></returns>
 		public IActionResult OnPost() {
 			//data is validating
 			if (!ModelState.IsValid) {
@@ -37,8 +39,7 @@ namespace ArvatoApp.Pages {
 			Ticket.browserInfo = Request.Headers["User-Agent"].ToString();
 			Ticket.logDateTime = DateTime.Now;
 
-
-			var result = ticketData.saveTicket(Ticket);
+			var result = ticketBL.saveTicket(Ticket);
 			if (!result.Success) {
 				ViewData["info"] = result.SaveResultMessage;
 				return Page();
@@ -49,7 +50,5 @@ namespace ArvatoApp.Pages {
 			ModelState.Clear();
 			return Page();
 		}
-	
 	}
-
 }
