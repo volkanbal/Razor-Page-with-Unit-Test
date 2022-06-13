@@ -1,0 +1,28 @@
+[
+  {
+    "outputFileName": "wwwroot/css/site.min.css",
+    "inputFiles": [
+      "wwwroot/dist/fontawesome-free/css/all.css",
+      "wwwroot/css/adminlte.min.css"
+    ],
+    "minify": {
+      "enabled": true,
+      "adjustRelativePaths": false
+    }
+  },
+  {
+    "outputFileName": "wwwroot/js/site.min.js",
+    "inputFiles": [
+      "wwwroot/js/jquery.min.js",
+      //"node_modules/jquery-ui-dist/jquery-ui.min.js",
+      "wwwroot/js/bootstrap.bundle.min.js",
+      "wwwroot/js/adminlte.min.js",
+      "wwwroot/js/jquery.validate.min.js",
+      "wwwroot/jsjquery.validate.unobtrusive.min.js"
+    ],
+    "minify": {
+      "enabled": true
+    },
+    "sourceMap": false
+  }
+]
